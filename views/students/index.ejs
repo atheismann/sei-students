@@ -65,9 +65,15 @@
             <div class="card-content white-text">
               <div>
                 <span class="card-title">
-                  <i class="small material-icons">perm_identity</i>
-                  <span class="student-name"><%= student.name %></span>
-                  <% if (student.cohort) { %><span class="badge white">SEI <%= student.cohort %></span><% } %>
+                  <% if (student.avatar) { %>
+                    <img src="<%= student.avatar %>" alt="" class="circle responsive-img">&nbsp;&nbsp;
+                  <% } else { %>
+                    <i class="small material-icons">perm_identity</i>
+                  <% } %>
+                    <span class="student-name"><%= student.name %></span>
+                  <% if (student.cohort) { %>
+                    <span class="badge white">SEI <%= student.cohort %></span>
+                  <% } %>
                 </span>
               </div>
               <ul class="collection">

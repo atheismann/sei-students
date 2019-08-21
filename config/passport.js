@@ -11,7 +11,14 @@ passport.use(new GoogleStrategy({
     Student.findOne({ 'googleId': profile.id }, function(err, student) {
       if (err) return cb(err);
       if (student) {
-        return cb(null, student);
+        if (!student.avatar) {
+          student.avatar = profile.photos[0].value;
+          student.save(function(err) {
+            return cb(null, student);
+          });
+        } else {
+          return cb(null, student);
+        }
       } else {
         var newStudent = new Student({
           name: profile.displayName,
@@ -24,7 +31,7 @@ passport.use(new GoogleStrategy({
         });
       }
     });
-  };
+  }
 ));
 
 passport.serializeUser(function(student, done) {
